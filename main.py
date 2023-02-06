@@ -38,25 +38,31 @@ def exists_in_all(arg, statuses):
 
 def get_parent_task_status(*statuses):
     sorted_statuses = sort_statuses_by_priority(*statuses)
-    for status in sorted_statuses:
-        if status_dict[Status.MISSING_INFO.value] in sorted_statuses:
-            return status_dict[Status.MISSING_INFO.value]
 
-        elif status_dict[Status.PROCESSED.value] in sorted_statuses:
-            return status_dict[Status.PROCESSED.value]
+    missing_info = status_dict[Status.MISSING_INFO.value]
+    processed = status_dict[Status.PROCESSED.value]
+    requested = status_dict[Status.REQUESTED.value]
+    activated = status_dict[Status.ACTIVATED.value]
+    canceled = status_dict[Status.CANCELED.value]
+
+    for status in sorted_statuses:
+        if missing_info in sorted_statuses:
+            return missing_info
+
+        elif processed in sorted_statuses:
+            return processed
 
         elif exists_in_all(status, statuses):
             return status
 
-        elif status is status_dict[Status.REQUESTED.value]:
+        elif status is requested:
             return status
 
-        elif (status_dict[Status.ACTIVATED.value] is status or
-                status_dict[Status.CANCELED.value] is status):
+        elif status is activated or status is canceled:
+            return activated
 
-            return status_dict[Status.ACTIVATED.value]
         else:
-            return status_dict[Status.REQUESTED.value]
+            return requested
 
 
 if __name__ == '__main__':
