@@ -1,3 +1,20 @@
+## How to call the available API
+
+Send a POST request to `https://kareemzakaria.pythonanywhere.com/tasks/status`
+with the following example in the request body:
+```
+{
+    "subtask_statuses": ["Requested", "Canceled", "Requested"]
+}
+```
+Sample response:
+```
+{
+    "success": true,
+    "parent_status": "Requested"
+}
+```
+
 ## Exercise
 
 Imagine that you are in a project with tasks. Each task has N subtasks, at least it has 1 subtask.
