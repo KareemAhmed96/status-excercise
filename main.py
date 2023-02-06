@@ -48,18 +48,15 @@ def get_parent_task_status(*statuses):
 
 
 if __name__ == '__main__':
-    response_1 = get_parent_task_status('Processed', 'Missing info', 'Requested')
-    expected_1 = 'Missing info'
-    print("passed 1") if response_1 is expected_1 else print("failed 1")
+    tests = [
+        {'response': get_parent_task_status('Processed', 'Missing info', 'Requested'), 'expected': 'Missing info'},
+        {'response': get_parent_task_status('Requested', 'Processed', 'Cancelled'), 'expected': 'Processed'},
+        {'response': get_parent_task_status('Requested', 'Requested', 'Requested'), 'expected': 'Requested'},
+        {'response': get_parent_task_status('Activated', 'Activated', 'Canceled'), 'expected': 'Activated'},
+    ]
 
-    response_2 = get_parent_task_status('Requested', 'Processed', 'Cancelled')
-    expected_2 = 'Processed'
-    print("passed 2") if response_2 is expected_2 else print("failed 2")
-
-    response_3 = get_parent_task_status('Requested', 'Requested', 'Requested')
-    expected_3 = 'Requested'
-    print("passed 3") if response_3 is expected_3 else print("failed 3")
-
-    response_4 = get_parent_task_status('Activated', 'Activated', 'Canceled')
-    expected_4 = 'Activated'
-    print("passed 4") if response_4 is expected_4 else print("failed 4")
+    for i, test in enumerate(tests):
+        if test['response'] is test['expected']:
+            print(f"passed {i + 1}")
+        else:
+            print(f"failed {i + 1}")
