@@ -5,11 +5,11 @@ Both tasks and subtasks have a status, which can have the following values:
 
 ```
 dictStatus = {
-0: “Requested”,
-1: “Missing info”,
-2: “Processed”,
-3: “Activated”,
-4: “Canceled”,
+    0: “Requested”,
+    1: “Missing info”,
+    2: “Processed”,
+    3: “Activated”,
+    4: “Canceled”,
 }
 ```
 
