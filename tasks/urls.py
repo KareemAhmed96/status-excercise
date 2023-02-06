@@ -20,5 +20,5 @@ import statuses.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('tasks/status/', statuses.views.get_parent_task_status)
+    path('tasks/status', statuses.views.get_parent_task_status)
 ]

@@ -38,7 +38,7 @@ def sort_statuses_by_priority(statuses):
     return sorted_statuses
 
 
-@api_view(['GET'], )
+@api_view(['POST'], )
 def get_parent_task_status(request):
     response = None
     sorted_statuses = None
