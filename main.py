@@ -6,7 +6,7 @@ class Status(Enum):
     MISSING_INFO = 1
     PROCESSED = 2
     ACTIVATED = 3
-    CANCELLED = 4
+    CANCELED = 4
 
 
 status_dict = {
@@ -26,16 +26,37 @@ def sort_statuses_by_priority(*args):
     return sorted_statuses
 
 
-def get_parent_task_status(*args):
-    count = 1
-    for arg in sort_statuses_by_priority(*args):
-        if arg is status_dict[Status.MISSING_INFO.value]:
-            return arg
-        elif arg is status_dict[Status.PROCESSED.value]:
-            return arg
+def exists_in_all(arg, statuses):
+    result = False
+    for status in statuses:
+        if arg is status:
+            result = True
+        else:
+            return False
+    return result
 
-        count += 1
-        # print(count)
+
+def get_parent_task_status(*statuses):
+    sorted_statuses = sort_statuses_by_priority(*statuses)
+    for status in sorted_statuses:
+        if status_dict[Status.MISSING_INFO.value] in sorted_statuses:
+            return status_dict[Status.MISSING_INFO.value]
+
+        elif status_dict[Status.PROCESSED.value] in sorted_statuses:
+            return status_dict[Status.PROCESSED.value]
+
+        elif exists_in_all(status, statuses):
+            return status
+
+        elif status is status_dict[Status.REQUESTED.value]:
+            return status
+
+        elif (status_dict[Status.ACTIVATED.value] is status or
+                status_dict[Status.CANCELED.value] is status):
+
+            return status_dict[Status.ACTIVATED.value]
+        else:
+            return status_dict[Status.REQUESTED.value]
 
 
 if __name__ == '__main__':
@@ -51,6 +72,6 @@ if __name__ == '__main__':
     expected_3 = 'Requested'
     print("passed 3") if response_3 is expected_3 else print("failed 3")
 
-    response_4 = get_parent_task_status('Activated', 'Activated', 'Cancelled')
+    response_4 = get_parent_task_status('Activated', 'Activated', 'Canceled')
     expected_4 = 'Activated'
     print("passed 4") if response_4 is expected_4 else print("failed 4")
