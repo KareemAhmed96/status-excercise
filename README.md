@@ -15,7 +15,7 @@ Sample response:
 }
 ```
 
-Dashboard: `https://www.pythonanywhere.com/user/kareemzakaria/webapps`
+Deployment Dashboard: `https://www.pythonanywhere.com/user/kareemzakaria/webapps`
 
 ## Exercise
 
